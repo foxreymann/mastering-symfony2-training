@@ -19,18 +19,8 @@ class SensioHangmanExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-//        $configuration = new Configuration();
-//        $config = $this->processConfiguration($configuration, $configs);
-
-        $config = array_pop($configs);
-        
-        if(!isset($config['dictionaries']) || !is_array($config['dictionaries'])) {
-            throw new \InvalidArgumentException('Dictionaries need to be provided');
-        }        
-
-        if(!isset($config['word_length'])) {
-            throw new \InvalidArgumentException('Word lenght need to be provided');
-        }        
+        $configuration = new Configuration();
+        $config = $this->processConfiguration($configuration, $configs);
 
         $container->setParameter('sensio_hangman.dictionaries', $config['dictionaries']);    
         $container->setParameter('sensio_hangman.word_length', $config['word_length']);    
