@@ -17,11 +17,14 @@ class GameTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(Game::MAX_ATTEMPTS,$game->getRemainingAttempts());
     }
 
-    public function testRemainingAttempts()
+    public function testTryInvalidWord()
     {
         $game = new Game('php');
- 
-
+        $this->assertFalse($game->tryWord('java'));
+        $this->assertFalse($game->isWon());
+        $this->assertTrue($game->isHanged());
+        $this->assertTrue($game->isOver());
+        $this->assertSame(0,$game->getRemainingAttempts());
     }
     
 }
