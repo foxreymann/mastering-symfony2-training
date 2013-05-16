@@ -23,7 +23,7 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->integerNode('word_length')
-                    ->min(8)
+                    ->min(3)
                 ->end()
                 ->arrayNode('dictionaries')
                     ->isRequired()
