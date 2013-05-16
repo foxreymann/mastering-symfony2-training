@@ -26,5 +26,15 @@ class GameTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($game->isOver());
         $this->assertSame(0,$game->getRemainingAttempts());
     }
+
+    public function testTryCorrectLetter()
+    {
+        $game = new Game('php');
+        $this->assertTrue($game->tryLetter('p'));
+        $this->assertSame(Game::MAX_ATTEMPTS, $game->getRemainingAttempts());
+        $this->assertFalse($game->isWon());
+        $this->assertFalse($game->isHanged());
+        $this->assertFalse($game->isOver());
+    }
     
 }
