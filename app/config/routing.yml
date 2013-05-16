@@ -1,0 +1,6 @@
+homepage:
+    pattern:  /
+    defaults: { _controller: SensioHangmanBundle:Game:index }
+
+sensio_hangman:
+    resource:  "@SensioHangmanBundle/Controller"
