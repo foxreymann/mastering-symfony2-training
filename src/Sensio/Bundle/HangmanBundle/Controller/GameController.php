@@ -7,8 +7,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Sensio\Bundle\HangmanBundle\Game\GameContext;
-use Sensio\Bundle\HangmanBundle\Game\WordList;
 
 /**
  * @Route("/game")
@@ -16,8 +14,6 @@ use Sensio\Bundle\HangmanBundle\Game\WordList;
  */
 class GameController extends Controller
 {
-    private $gameContext;
-
     private $wordList;
 
     /**
@@ -168,21 +164,11 @@ class GameController extends Controller
 
     private function getGameContext()
     {
-        if (null === $this->gameContext) {
-            $this->gameContext =  $this->get('sensio.gameContext');
-        }
-
-        return $this->gameContext;
+        return $this->get('sensio_hangman.game_context');
     }
 
     private function getWordList()
     {
-        if (null === $this->wordList) {
-            $dictionaries = $this->container->getParameter('sensio_hangman.dictionaries');
-            $this->wordList = new WordList($dictionaries);
-            $this->wordList->loadDictionaries();            
-        }
-
-        return $this->wordList;
+        return $this->get('sensio_hangman.word_list');
     }
 }

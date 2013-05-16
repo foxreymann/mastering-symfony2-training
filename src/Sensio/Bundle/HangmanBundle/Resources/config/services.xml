@@ -5,9 +5,18 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="sensio.gameContext" class="Sensio\Bundle\HangmanBundle\Game\GameContext">
+        <service id="sensio_hangman.game_context" class="Sensio\Bundle\HangmanBundle\Game\GameContext">
             <argument type="service" id="session" />
         </service>
+
+        <service id="sensio_hangman.word_list" class="Sensio\Bundle\HangmanBundle\Game\WordList">
+            <argument>%sensio_hangman.dictionaries%</argument>
+
+            <call method="loadDictionaries">
+            </call>
+
+        </service>
     </services>
+
 
 </container>
