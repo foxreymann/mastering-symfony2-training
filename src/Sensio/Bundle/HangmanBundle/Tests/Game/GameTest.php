@@ -6,11 +6,26 @@ use Sensio\Bundle\HangmanBundle\Game\Game;
 
 class GameTest extends \PHPUnit_Framework_TestCase
 {
-    public function testTryCorrectWord() 
+    /**
+     * @dataProvider provideCorrectWord
+     */
+    public function provideCorrectWords()
     {
-        $game = new Game('php');
+        return array(
+            array('php'),
+            array('java'),
+            array('ruby')
+        );
+    }
 
-        $this->assertTrue($game->tryWord('php'));
+    /**
+     * @dataProvider provideCorrectWords
+     */
+    public function testTryCorrectWord($word) 
+    {
+        $game = new Game($word);
+
+        $this->assertTrue($game->tryWord($word));
         $this->assertTrue($game->isWon());
         $this->assertFalse($game->isHanged());
         $this->assertTrue($game->isOver());
@@ -36,5 +51,35 @@ class GameTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($game->isHanged());
         $this->assertFalse($game->isOver());
     }
-    
+
+    public function testTryIncorrectLetter()
+    {
+        $game = new Game('php');
+        $this->assertFalse($game->tryLetter('j'));
+        $this->assertSame(Game::MAX_ATTEMPTS - 1, $game->getRemainingAttempts());
+        $this->assertFalse($game->isWon());
+        $this->assertFalse($game->isHanged());
+        $this->assertFalse($game->isOver());
+    }
+
+    public function testTrySameCorrectLetterTwice()
+    {
+        $game = new Game('php');
+        $this->assertTrue($game->tryLetter('p'));
+        $this->assertFalse($game->tryLetter('p'));
+        $this->assertSame(Game::MAX_ATTEMPTS - 1, $game->getRemainingAttempts());
+        $this->assertFalse($game->isWon());
+        $this->assertFalse($game->isHanged());
+        $this->assertFalse($game->isOver());
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testTryNumber()
+    {
+        $game = new Game('php');
+        $game->tryLetter('4');
+    }
+
 }
