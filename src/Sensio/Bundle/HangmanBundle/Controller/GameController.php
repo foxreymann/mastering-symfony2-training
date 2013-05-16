@@ -169,7 +169,7 @@ class GameController extends Controller
     private function getGameContext()
     {
         if (null === $this->gameContext) {
-            $this->gameContext = new GameContext($this->get('session'));
+            $this->gameContext =  $this->get('sensio.gameContext');
         }
 
         return $this->gameContext;
