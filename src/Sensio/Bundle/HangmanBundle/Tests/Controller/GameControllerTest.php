@@ -51,8 +51,9 @@ class GameControllerTest extends WebTestCase
         return $this->client->submit($form, array('word' => $word));
     }
 
-    public function playLetter($letter, $crawler)
+    public function playLetter($letter)
     {
+        $crawler = $this->client->getCrawler();
         $link = $crawler->selectLink($letter)->link();
         return $this->client->click($link);
     }    
@@ -61,9 +62,9 @@ class GameControllerTest extends WebTestCase
     {
         $crawler = $this->client->request('GET','/game/');
 
-        $crawler = $this->playLetter('P', $crawler);
-        $crawler = $this->playLetter('X', $crawler);
-        $crawler = $this->playLetter('H', $crawler);
+        $crawler = $this->playLetter('P');
+        $crawler = $this->playLetter('X');
+        $crawler = $this->playLetter('H');
         
         $this->assertEquals(
             'Congratulations!',
