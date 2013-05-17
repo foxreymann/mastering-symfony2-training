@@ -12,12 +12,12 @@ class PlayerType extends AbstractType
     {
         $builder
             ->add('username')
-            ->add('email')
-            ->add('password')
-            ->add('salt')
-            ->add('isActive')
-            ->add('isAdmin')
-            ->add('expiresAt')
+            ->add('email','email')
+            ->add('rawpassword','repeated', array(
+                'type' => 'password',
+                'first_options' => array('label' => "Password"),
+                'second_options' => array('label' => "Confirm") 
+            ))
         ;
     }
 
@@ -30,6 +30,6 @@ class PlayerType extends AbstractType
 
     public function getName()
     {
-        return 'sensio_bundle_hangmanbundle_playertype';
+        return 'player';
     }
 }

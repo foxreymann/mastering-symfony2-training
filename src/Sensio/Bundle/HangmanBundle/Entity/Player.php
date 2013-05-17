@@ -91,6 +91,8 @@ class Player
     public function setRawPassword($password)
     {
         $this->rawPassword = $password;
+        $this->password = $password;
+        $this->salt = 'salt';
     }
 
     public function getRawPassword()
