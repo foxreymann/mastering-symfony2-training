@@ -3,6 +3,7 @@
 namespace Sensio\Bundle\HangmanBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Sensio\Bundle\HangmanBundle\Entity\Player
@@ -26,6 +27,9 @@ class Player
      *
      * @ORM\Column(name="username", type="string", length=15, unique=true)
      *
+     * @Assert\NotBlank()
+     * @Assert\Length(min=3, max=12)
+     * @Assert\Regex("/^[a-z][a-z0-9]+$/i")
      */
     private $username;
 
