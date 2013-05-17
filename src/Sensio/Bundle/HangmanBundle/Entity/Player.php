@@ -29,7 +29,7 @@ class Player
      *
      * @Assert\NotBlank()
      * @Assert\Length(min=3, max=12)
-     * @Assert\Regex("/^[a-z][a-z0-9]+$/i")
+     * @Assert\Regex(pattern = "/^[a-z][a-z0-9]+$/i", message="User name can only contain letters and numbers")
      */
     private $username;
 
@@ -38,6 +38,8 @@ class Player
      *
      * @ORM\Column(name="email", type="string", length=60, unique=true)
      *
+     * @Assert\NotBlank()
+     * @Assert\Email()
      */
     private $email;
 
@@ -76,6 +78,10 @@ class Player
      */
     private $expiresAt;
 
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Length(min=8)
+     */
     private $rawPassword;
 
     /**
