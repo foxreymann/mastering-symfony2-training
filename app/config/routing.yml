@@ -4,3 +4,10 @@ homepage:
 
 sensio_hangman:
     resource:  "@SensioHangmanBundle/Controller"
+
+login_check:
+    path: /auth
+    requirements: { _method: POST }
+
+signout:
+    path: /logout

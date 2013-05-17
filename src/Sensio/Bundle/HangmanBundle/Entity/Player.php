@@ -4,14 +4,20 @@ namespace Sensio\Bundle\HangmanBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Sensio\Bundle\HangmanBundle\Entity\Player
  *
  * @ORM\Table(name="sl_players")
  * @ORM\Entity(repositoryClass="Sensio\Bundle\HangmanBundle\Entity\PlayerRepository")
+ *
+ * @UniqueEntity(fields="email", message="E-mail is already taken")
+ * @UniqueEntity(fields="username", message="Username is already taken")
  */
-class Player
+class Player implements UserInterface
 {
     /**
      * @var integer $id
@@ -80,7 +86,7 @@ class Player
 
     /**
      * @Assert\NotBlank()
-     * @Assert\Length(min=8)
+     * @Assert\Length(min=2)
      */
     private $rawPassword;
 
@@ -101,8 +107,6 @@ class Player
     public function setRawPassword($password)
     {
         $this->rawPassword = $password;
-        $this->password = $password;
-        $this->salt = 'salt';
     }
 
     public function getRawPassword()
@@ -266,5 +270,24 @@ class Player
     public function isPasswordValid()
     {
         return !preg_match('/'.preg_quote($this->username).'/i', $this->rawPassword);
+    }
+
+    public function encodePassword(PasswordEncoderInterface $encoder)
+    {
+        if(!is_null($this->rawPassword)) {
+            $this->salt = sha1(uniqid(mt_rand()));
+            $this->password = $encoder->encodePassword($this->rawPassword, $this->salt);
+            $this->rawPassword = null;
+        }
+    }
+
+    public function getRoles()
+    {
+        return array('ROLE_PLAYER');
+    }
+
+    public function eraseCredentials()
+    {
+        $this->rawPassword = null;
     }
 }
