@@ -22,7 +22,7 @@
                             <a href="#">Homepage</a>
                         </li>
                         <li>
-                            <a href="{{ path=('signup') }} ">Register</a>
+                            <a href="#">Register</a>
                         </li>
                         <li>
                             <a href="#">Login</a>
@@ -53,6 +53,7 @@
                     </div>
                     <h3>Last players</h3>
                     <p>
+                        {{ "now" | date('H:i:s') }}
                         {{
                             render_esi(controller(
                                 'SensioHangmanBundle:Player:players',

@@ -1,0 +1,6 @@
+{{ "now" | date('H:i:s') }}
+<ul>
+    {% for player in players %}
+        <li>{{ player.username }}</li>
+    {% endfor %} 
+</ul>

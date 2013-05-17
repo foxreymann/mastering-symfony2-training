@@ -71,6 +71,6 @@ class PLayerController extends Controller
         $repository = $this->getDoctrine()->getRepository('SensioHangmanBundle:Player');
         $players = $repository->findRecentPlayers($max);
 
-        return array();
+        return array('players' => $players);
     }
 }
