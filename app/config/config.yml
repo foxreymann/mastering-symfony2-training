@@ -15,7 +15,7 @@ sensio_hangman:
         - "%kernel.root_dir%/data/words.xml"
 
 framework:
-    #esi:             ~
+    esi:             ~
     #translator:      { fallback: %locale% }
     secret:          %secret%
     router:

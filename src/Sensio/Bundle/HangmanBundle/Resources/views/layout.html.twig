@@ -22,7 +22,7 @@
                             <a href="#">Homepage</a>
                         </li>
                         <li>
-                            <a href="#">Register</a>
+                            <a href="{{ path=('signup') }} ">Register</a>
                         </li>
                         <li>
                             <a href="#">Login</a>
@@ -53,7 +53,12 @@
                     </div>
                     <h3>Last players</h3>
                     <p>
-                        Urna dis suscipit lorem sed luctus. Elementum suspendisse tempus fermentum ornare libero phasellus nibh conseuqat dolore.
+                        {{
+                            render_esi(controller(
+                                'SensioHangmanBundle:Player:players',
+                                { 'max' : 10 }
+                            ))
+                        }}
                     </p>
                 </div>
                 <br class="clearfix" />

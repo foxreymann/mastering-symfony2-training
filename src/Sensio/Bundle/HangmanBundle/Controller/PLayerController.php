@@ -10,6 +10,7 @@ use Sensio\Bundle\HangmanBundle\Form\PlayerType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 use Symfony\Component\Security\Core\SecurityContext;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 
 class PLayerController extends Controller
 {
@@ -59,5 +60,17 @@ class PLayerController extends Controller
         }
 
         return array('last_username' => $name, 'error' => $error);
+    }
+
+    /**
+     * @Template()
+     * @Cache(smaxage=120)
+     */
+    public function playersAction($max)
+    { 
+        $repository = $this->getDoctrine()->getRepository('SensioHangmanBundle:Player');
+        $players = $repository->findRecentPlayers($max);
+
+        return array();
     }
 }

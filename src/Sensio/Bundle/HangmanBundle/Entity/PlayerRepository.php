@@ -12,5 +12,21 @@ use Doctrine\ORM\EntityRepository;
  */
 class PlayerRepository extends EntityRepository
 {
+    public function findRecentPlayers($max)
+    {
+        $q = $this
+             ->createQueryBuilder('p')
+->select('p.id, p.username')
+->where('p.isActive = :active')
+->andWhere('p.isAdmin = :admin')
+->orderBy('p.id', 'DESC')
+->setMaxResults($max)
+->setParameter('active', true)
+->setParameter('admin', false)
+->getQuery()
+;
+    
+    return $q->getArrayResult();
 
+    }
 }
