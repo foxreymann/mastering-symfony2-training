@@ -259,4 +259,12 @@ class Player
     {
         return $this->expiresAt;
     }
+
+    /**
+     * @Assert\True(message="User name cannot be a part of the password") 
+     */
+    public function isPasswordValid()
+    {
+        return !preg_match('/'.preg_quote($this->username).'/i', $this->rawPassword);
+    }
 }
