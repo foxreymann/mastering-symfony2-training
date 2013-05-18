@@ -12,5 +12,17 @@ use Doctrine\ORM\EntityRepository;
  */
 class GameDataRepository extends EntityRepository
 {
+    public function reset($player, $data)
+    {
+    }
+    
+    public function find($player)
+    {
+        return $this->findByPlayerId($player->getId()):
+    }
 
+    public function save($player, $data)
+    {
+        // $gameDeta = $this->
+    }
 }

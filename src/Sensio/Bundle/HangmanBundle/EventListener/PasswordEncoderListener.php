@@ -3,7 +3,7 @@
 namespace Sensio\Bundle\HangmanBundle\EventListener;
 
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
-        use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
+use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 
 class PasswordEncoderListener
 {

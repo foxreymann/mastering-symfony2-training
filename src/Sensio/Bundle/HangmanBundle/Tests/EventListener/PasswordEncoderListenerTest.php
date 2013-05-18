@@ -25,4 +25,11 @@ class PasswordEncoderListenerTest extends \PHPUnit_Framework_TestCase
         $listener = new PasswordEncoderListener($encoder);
         $listener->prePersist($event);
     }
+
+    private function getEventMock() 
+    {
+
+
+    }
+
 }
